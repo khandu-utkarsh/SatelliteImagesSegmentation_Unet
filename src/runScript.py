@@ -71,7 +71,7 @@ else:
 
 workspaceRoot = os.getcwd()
 batch_size = 8
-epochs = 3
+epochs = 100
 lr = 5e-5
 
 print('Printing all the arguments used by RunModel function:')
