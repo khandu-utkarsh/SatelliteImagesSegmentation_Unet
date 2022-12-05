@@ -8,7 +8,7 @@ from segmentation_models_pytorch import losses
 
 import numpy as np
 import time
-
+import os
 
 import torchmetrics
 from torch.optim import Adam
@@ -19,7 +19,7 @@ from torch.optim import Adam
 # Training loop
 
 
-
+model_dir = "./models/"
 loss_fn = losses.JaccardLoss(mode = "multiclass",classes = [0,1,2,3,4])
 
 # The colors of the 5 land uses. Using the colors of the paper
@@ -28,7 +28,7 @@ labels_cmap = matplotlib.colors.ListedColormap(["#000000", "#A9A9A9",
 
 def training_loop(model, train_loader, val_loader, epochs,
                   lr, loss_fn, regularization=None,
-                  reg_lambda=None, mod_epochs=5, early_stopping = False,
+                  reg_lambda=None, mod_epochs=1, early_stopping = False,
                   patience = None, verbose = None, model_title = None, save = None,
                  stopping_criterion = "loss"):
     if stopping_criterion not in ["loss"]:
@@ -71,15 +71,18 @@ def training_loop(model, train_loader, val_loader, epochs,
                 preds = model(X)
                 
                 val_loss += loss_fn(preds, y).item()
-                
+            
         train_loss /= num_train_batches
         val_loss /= num_val_batches
 
         train_loss_list.append(train_loss)
         val_loss_list.append(val_loss)
         if (epoch + 1) % mod_epochs == 0:
+            file1 = open("TrainValLosses.txt", "a")
+            torch.save(model.state_dict(), os.path.join(model_dir, 'epoch-{}.pth'.format(epoch)))
             print(
-                f"Epoch: {epoch + 1}/{epochs}{5 * ' '}Training Loss: {train_loss:.4f}{5 * ' '}Validation Loss: {val_loss:.4f}")
+                f"Epoch: {epoch + 1}/{epochs}{5 * ' '}Training Loss: {train_loss:.4f}{5 * ' '}Validation Loss: {val_loss:.4f}", file = file1)
+            file1.close()
 
     sns.set_style("dark")
     fig, ax = plt.subplots(figsize=(8, 8))
@@ -109,12 +112,12 @@ def training_loop(model, train_loader, val_loader, epochs,
 # Test loop
         
 def segmentation_test_loop(model, test_loader, device = "cpu"):
-    stat_scores = torchmetrics.StatScores(reduce = "macro", num_classes = 5,
+    stat_scores = torchmetrics.StatScores(reduce = "macro", task="multiclass", num_classes = 5,
                             mdmc_reduce = "global").to(device)
-    acc = torchmetrics.Accuracy(num_classes = 5, average = "micro",
+    acc = torchmetrics.Accuracy(num_classes = 5, average = "micro",task="multiclass",
                    mdmc_average = "global").to(device)
     mlacc = torchmetrics.classification.MulticlassExactMatch(num_classes=5, multidim_average='global').to(device)
-    jaccard = torchmetrics.JaccardIndex(num_classes = 5).to(device)
+    jaccard = torchmetrics.JaccardIndex(task="multiclass", num_classes = 5).to(device)
     
     model.eval()
 
@@ -151,11 +154,13 @@ def class_report(classes, scores, acc, mlacc, jaccard, class_probs):
     acc = float(acc.cpu())
     jaccard = float(jaccard.cpu())
     mlacc = float(mlacc.cpu())
+    '''
     for i,target in enumerate(classes):
         precision = float((scores[i,0]/(scores[i,0]+scores[i,1])).cpu())
         recall = float((scores[i,0]/(scores[i,0]+scores[i,3])).cpu())
         f1 = (2*precision*recall)/(precision+recall)
         print(f"{target}{10*' '}{precision:.2f}{10*' '}{recall:.2f}{10*' '}{f1:.2f}{10*' '}{scores[i,4]}")
+    '''
     print(f"\n- Total accuracy:{acc:.4f}\n")
     print(f"- Mean IoU: {jaccard:.4f}\n")
     print(f"- Exact Match Ratio: {mlacc:.4f}\n")
