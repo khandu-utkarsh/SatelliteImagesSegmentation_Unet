@@ -1,7 +1,8 @@
+import os
 import segmentation_models_pytorch as smp
 
 class SegmentationModel:
-    def __init__(self):
+    def __init__(self, workspaceRootDir):
         self.encoder_name = "resnet50"
         self.encoder_depth = 5
         self.encoder_weights = "imagenet"
@@ -13,9 +14,9 @@ class SegmentationModel:
         self.activation  = "softmax2d"
         self.aux_params = None
         self.model = None
+        self.workspace_root_dir = workspaceRootDir
 
     def InitializeModel(self):
-
         self.model = smp.Unet(
                                encoder_name= self.encoder_name,
                                 encoder_depth = self.encoder_depth,

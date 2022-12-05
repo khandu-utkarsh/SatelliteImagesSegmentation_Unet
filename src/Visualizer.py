@@ -1,8 +1,5 @@
-import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from torch.utils.data import DataLoader
-
 
 class Visualizer():
 
@@ -38,7 +35,9 @@ class Visualizer():
 
         title = 'Visualization of eight images from ' + type
         fig.suptitle(title, fontsize=20)
+        title = "visualizations/Visualization_of_eight_images_from_" + type
         fig.savefig(title)
+        plt.close(fig)
 
 
 def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
@@ -50,7 +49,7 @@ def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
         pred = predicted_mask[index].numpy()
         gt = ground_truth[index].numpy()
 
-        fig, ax = plt.subplots(figsize=(4, 8), nrows=1, ncols=3)
+        fig, ax = plt.subplots(figsize=(8, 4), nrows=1, ncols=3)
         ax[0].set_title('Statellite Image')
         ax[0].imshow(img)
 
@@ -63,4 +62,16 @@ def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
 
         title = 'Model Prediction'
         fig.suptitle(title, fontsize=20)
-        fig.savefig(batchImageName + str(index))
+        fig.savefig(batchImageName +'_' + str(index))
+        plt.close(fig)
+
+def PlotTrainingLossesGraph(counter_epochs, train_loss_list, val_loss_list, saveFigPath):
+    fig, ax = plt.subplots(figsize=(8, 8))
+    ax.plot(range(1, counter_epochs + 1), train_loss_list, label='Train Loss', linewidth=2.5)
+    ax.plot(range(1, counter_epochs + 1), val_loss_list, label='Val Loss', linewidth=2.5)
+    ax.set_title("Graph between losses and epoch counts", fontsize=15)
+    ax.set_ylabel("Loss", fontsize=13)
+    ax.set_xlabel("Epochs", fontsize=13)
+    plt.legend()
+    plt.savefig(saveFigPath)
+    plt.close(fig)
