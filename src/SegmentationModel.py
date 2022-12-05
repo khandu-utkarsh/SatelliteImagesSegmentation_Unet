@@ -10,7 +10,7 @@ class SegmentationModel:
         self.decoder_attention_type = None
         self.in_channels = 3 #(Only RGB Channels)
         self.classes = 5
-        self.activation  = "softmax"
+        self.activation  = "softmax2d"
         self.aux_params = None
         self.model = None
 

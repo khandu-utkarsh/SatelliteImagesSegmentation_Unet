@@ -33,8 +33,7 @@ def training_loop(model, train_loader, val_loader, epochs,
                  stopping_criterion = "loss"):
     if stopping_criterion not in ["loss"]:
         raise ValueError(f"stopping criterion should be 'loss', not {stopping_criterion}.")
-    #print("Training of " + model_title + " starts!")
-    #print(f"Using {stopping_criterion} as stopping criterion.\n")
+
     tic = time.time()
     
     optim = Adam(model.parameters(), lr=lr)
