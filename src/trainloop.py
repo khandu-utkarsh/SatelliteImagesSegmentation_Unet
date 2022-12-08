@@ -176,6 +176,13 @@ class TrainTest:
     def class_report(self, classes, precision, recall, F1score, acc, mlacc, jaccard, class_probs):
         data = [precision.detach(), recall.detach(), F1score.detach(), acc.detach(), mlacc.detach(),jaccard.detach(), class_probs]
 
+        data[0] = data[0].cpu()
+        data[1] = data[1].cpu()
+        data[2] = data[2].cpu()
+        data[3] = data[3].cpu()
+        data[4] = data[4].cpu()
+        data[5] = data[5].cpu()
+
         p = data[0].reshape(5,1)
         r = data[1].reshape(5,1)
         f1 = data[2].reshape(5,1)

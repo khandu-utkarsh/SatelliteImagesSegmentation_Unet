@@ -1,12 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 class Visualizer():
 
-    def __init__(self, trainDataLoader):
+    def __init__(self, trainDataLoader, wp):
         imgs, masks = next(iter(trainDataLoader))
         self.images = imgs
         self.masks = masks
+        self.workspaceRootDir = wp
 
     def VisualizeEightImages(self, type, rowCount = 4):
         images = self.images[:8]
@@ -35,8 +37,11 @@ class Visualizer():
 
         title = 'Visualization of eight images from ' + type
         fig.suptitle(title, fontsize=20)
-        title = "visualizations/Visualization_of_eight_images_from_" + type
-        fig.savefig(title)
+
+        fileName = "Visualization_of_eight_images_from_" + type
+        visaulizationPath = os.path.join(self.workspaceRootDir, "visualizations")
+        fileFullPath = os.path.join(visaulizationPath, fileName)
+        fig.savefig(fileFullPath)
         plt.close(fig)
 
 
@@ -44,10 +49,10 @@ def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
     num_images = image.shape[0]
 
     for index in range(num_images):
-        img = image[index].numpy()
+        img = image[index].cpu().numpy()
         img = np.transpose(img, (1,2,0))
-        pred = predicted_mask[index].numpy()
-        gt = ground_truth[index].numpy()
+        pred = predicted_mask[index].cpu().numpy()
+        gt = ground_truth[index].cpu().numpy()
 
         fig, ax = plt.subplots(figsize=(8, 4), nrows=1, ncols=3)
         ax[0].set_title('Statellite Image')

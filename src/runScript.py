@@ -14,22 +14,22 @@ import torch.utils.data as data_utils
 
 def RunModel(workspaceRoot, batch_size, epochs, lr, useSaveModel = False, modelPath = None):
     trainDataset = sdata.Landcover_ai_Dataset(workspaceRoot)
-#    trainDataset = data_utils.Subset(trainDataset, torch.arange(16)) #Have to remove this
+    trainDataset = data_utils.Subset(trainDataset, torch.arange(16)) #Have to remove this
     train_dloader = DataLoader(trainDataset,batch_size = batch_size)
-    visualizer = v.Visualizer(train_dloader)
+    visualizer = v.Visualizer(train_dloader,workspaceRoot)
     visualizer.VisualizeEightImages('training set')
 
     testDataset = sdata.Landcover_ai_Dataset(workspaceRoot, mode = "test")
-#    testDataset = data_utils.Subset(testDataset, torch.arange(16))  #Have to remove this
+    testDataset = data_utils.Subset(testDataset, torch.arange(16))  #Have to remove this
     test_dloader = DataLoader(testDataset, batch_size = batch_size)
-    visualizer = v.Visualizer(test_dloader)
+    visualizer = v.Visualizer(test_dloader,workspaceRoot)
     visualizer.VisualizeEightImages('testing set')
 
 
     validDataset = sdata.Landcover_ai_Dataset(workspaceRoot, mode = "val")
-#    validDataset = data_utils.Subset(validDataset, torch.arange(16))  #Have to remove this
+    validDataset = data_utils.Subset(validDataset, torch.arange(16))  #Have to remove this
     val_dloader = DataLoader(validDataset, batch_size=batch_size,)
-    visualizer = v.Visualizer(val_dloader)
+    visualizer = v.Visualizer(val_dloader,workspaceRoot)
     visualizer.VisualizeEightImages('validation set')
     visualizer = None
 
@@ -71,7 +71,7 @@ else:
 
 workspaceRoot = os.getcwd()
 batch_size = 8
-epochs = 100
+epochs = 1
 lr = 5e-5
 
 print('Printing all the arguments used by RunModel function:')
