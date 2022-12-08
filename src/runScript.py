@@ -76,4 +76,5 @@ lr = 5e-5
 
 print('Printing all the arguments used by RunModel function:')
 print(workspaceRoot, batch_size, epochs, lr, useSaveModel, modelPath)
+print('CUDA Availability: ', torch.cuda.is_available())
 success = RunModel(workspaceRoot, batch_size, epochs, lr, useSaveModel, modelPath)
