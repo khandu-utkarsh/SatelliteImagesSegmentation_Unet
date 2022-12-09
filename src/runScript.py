@@ -70,8 +70,8 @@ else:
     modelPath = None
 
 workspaceRoot = os.getcwd()
-batch_size = 8
-epochs = 1
+batch_size = 64
+epochs = 30
 lr = 5e-5
 
 print('Printing all the arguments used by RunModel function:')
