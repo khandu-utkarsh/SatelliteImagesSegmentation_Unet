@@ -50,3 +50,11 @@ Epoch: 17/20     Training Loss: 0.7255     Validation Loss: 0.7651
 Epoch: 18/20     Training Loss: 0.7254     Validation Loss: 0.7629
 Epoch: 19/20     Training Loss: 0.7253     Validation Loss: 0.7636
 Epoch: 20/20     Training Loss: 0.7251     Validation Loss: 0.7640
+
+
+
+
+New Run: 
+Current Timestamp:  2022-12-09 01:24:38.057473
+
+
