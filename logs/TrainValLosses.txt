@@ -1,0 +1,52 @@
+
+
+
+
+New Run: 
+Current Timestamp:  2022-12-08 23:39:44.744854
+
+
+
+
+
+
+New Run: 
+Current Timestamp:  2022-12-08 23:44:06.693710
+
+
+
+
+
+
+New Run: 
+Current Timestamp:  2022-12-08 23:48:54.200833
+
+
+
+
+
+
+New Run: 
+Current Timestamp:  2022-12-08 23:49:28.048070
+
+
+Epoch: 1/20     Training Loss: 0.7605     Validation Loss: 0.7937
+Epoch: 2/20     Training Loss: 0.7627     Validation Loss: 0.7937
+Epoch: 3/20     Training Loss: 0.7627     Validation Loss: 0.7937
+Epoch: 4/20     Training Loss: 0.7607     Validation Loss: 0.7869
+Epoch: 5/20     Training Loss: 0.7552     Validation Loss: 0.7673
+Epoch: 6/20     Training Loss: 0.7329     Validation Loss: 0.7641
+Epoch: 7/20     Training Loss: 0.7300     Validation Loss: 0.7627
+Epoch: 8/20     Training Loss: 0.7289     Validation Loss: 0.7631
+Epoch: 9/20     Training Loss: 0.7282     Validation Loss: 0.7633
+Epoch: 10/20     Training Loss: 0.7277     Validation Loss: 0.7644
+Epoch: 11/20     Training Loss: 0.7272     Validation Loss: 0.7642
+Epoch: 12/20     Training Loss: 0.7269     Validation Loss: 0.7629
+Epoch: 13/20     Training Loss: 0.7267     Validation Loss: 0.7617
+Epoch: 14/20     Training Loss: 0.7264     Validation Loss: 0.7636
+Epoch: 15/20     Training Loss: 0.7260     Validation Loss: 0.7674
+Epoch: 16/20     Training Loss: 0.7258     Validation Loss: 0.7637
+Epoch: 17/20     Training Loss: 0.7255     Validation Loss: 0.7651
+Epoch: 18/20     Training Loss: 0.7254     Validation Loss: 0.7629
+Epoch: 19/20     Training Loss: 0.7253     Validation Loss: 0.7636
+Epoch: 20/20     Training Loss: 0.7251     Validation Loss: 0.7640
