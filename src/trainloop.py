@@ -64,8 +64,6 @@ class TrainTest:
             modelPath = os.path.join(self.model_dir, self.useModelName)
             print("Loading the saved model from: ", modelPath)
             self.model.load_state_dict(torch.load(modelPath))
-            self.model.eval()
-            return
 
         tic = time.time()
 
