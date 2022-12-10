@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import glob
+import cv2
+import random
 
 class Visualizer():
 
@@ -39,8 +42,8 @@ class Visualizer():
         fig.suptitle(title, fontsize=20)
 
         fileName = "Visualization_of_eight_images_from_" + type
-        visaulizationPath = os.path.join(self.workspaceRootDir, "visualizations")
-        fileFullPath = os.path.join(visaulizationPath, fileName)
+        visualizationPath = os.path.join(self.workspaceRootDir, "visualizations")
+        fileFullPath = os.path.join(visualizationPath, fileName)
         fig.savefig(fileFullPath)
         plt.close(fig)
 
@@ -69,6 +72,36 @@ def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
         fig.suptitle(title, fontsize=20)
         fig.savefig(batchImageName +'_' + str(index))
         plt.close(fig)
+
+def VisualizeTransforms(transforms, transforms_names,visPath):
+    NUM_SAMPLE = random.randint(1,10)
+    trainpath_list = list(glob.glob(os.path.join(os.getcwd(),"datasets_images", "*.jpg")))
+    img = cv2.imread(trainpath_list[NUM_SAMPLE])
+
+    fig, ax = plt.subplots(figsize = (10,10), nrows = 2, ncols = 3)
+
+    ax[0,0].imshow(img)
+    ax[0,0].axis("off")
+    ax[0,0].set_title("True image")
+    count = 0
+
+    for i in range(2):
+        for j in range(3):
+            if i+j == 0:
+                ax[i,j].imshow(img)
+                ax[i,j].axis("off")
+                ax[i,j].set_title("True image")
+            else:
+                transformed_img = transforms[count](image = img)["image"]
+                ax[i,j].imshow(transformed_img)
+                ax[i,j].axis("off")
+                ax[i,j].set_title(transforms_names[count])
+                count+=1
+    plt.suptitle("Data augmentation",fontsize=20)
+    plt.tight_layout(pad = 1)
+    savefigpath = os.path.join(visPath,"Sample_Augmentations_{}.png".format(NUM_SAMPLE))
+    plt.savefig(savefigpath)
+    plt.close(fig)
 
 def PlotTrainingLossesGraph(counter_epochs, train_loss_list, val_loss_list, saveFigPath):
     fig, ax = plt.subplots(figsize=(8, 8))

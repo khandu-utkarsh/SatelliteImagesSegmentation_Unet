@@ -26,7 +26,10 @@ class TrainTest:
         self.model = segmentation_model.model
         self.useSavedModel = useSavedModel
         self.useModelName = useModelName
-
+        if self.useSavedModel:
+            modelPath = os.path.join(self.model_dir, self.useModelName)
+            print("Loading the saved model from: ", modelPath)
+            self.model.load_state_dict(torch.load(modelPath))
         self.loss_fn = losses.JaccardLoss(mode = "multiclass",classes = [0,1,2,3,4])
 
         self.visualizations_dir = os.path.join(segmentation_model.workspace_root_dir, "visualizations")         #Vizualization Directory
@@ -60,10 +63,7 @@ class TrainTest:
 
 
     def segmentation_training_loop(self, epochs, lr, mod_epochs=1):
-        if self.useSavedModel:
-            modelPath = os.path.join(self.model_dir, self.useModelName)
-            print("Loading the saved model from: ", modelPath)
-            self.model.load_state_dict(torch.load(modelPath))
+        
 
         tic = time.time()
 

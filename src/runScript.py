@@ -11,31 +11,38 @@ import Visualizer as v
 #Could remove these once subset functions are being removed
 import torch
 import torch.utils.data as data_utils
+#import albumentations as A
 
 def RunModel(workspaceRoot, batch_size, epochs, lr, useSaveModel = False, modelPath = None):
-    trainDataset = sdata.Landcover_ai_Dataset(workspaceRoot)
+    trainDataset = sdata.Landcover_ai_Dataset(workspaceRoot,mode = "train")
+    
+    #transforms_names = ["Saturation", "RandomBrightnessConstrast",
+    #               "RandomRotate90", "HorizontalFlip", "RandomSizedCrop"]
+    #vispath = os.path.join(workspaceRoot,"visualizations")
+    #v.VisualizeTransforms(transforms,transforms_names,vispath)
     #trainDataset = data_utils.Subset(trainDataset, torch.arange(16)) #Have to remove this
     train_dloader = DataLoader(trainDataset,batch_size = batch_size)
-    visualizer = v.Visualizer(train_dloader,workspaceRoot)
-    visualizer.VisualizeEightImages('training set')
+    #visualizer = v.Visualizer(train_dloader,workspaceRoot)
+    #visualizer.VisualizeEightImages('training set')
 
     testDataset = sdata.Landcover_ai_Dataset(workspaceRoot, mode = "test")
     #testDataset = data_utils.Subset(testDataset, torch.arange(16))  #Have to remove this
     test_dloader = DataLoader(testDataset, batch_size = batch_size)
-    visualizer = v.Visualizer(test_dloader,workspaceRoot)
-    visualizer.VisualizeEightImages('testing set')
+    #visualizer = v.Visualizer(test_dloader,workspaceRoot)
+    #visualizer.VisualizeEightImages('testing set')
 
 
     validDataset = sdata.Landcover_ai_Dataset(workspaceRoot, mode = "val")
     #validDataset = data_utils.Subset(validDataset, torch.arange(16))  #Have to remove this
     val_dloader = DataLoader(validDataset, batch_size=batch_size,)
-    visualizer = v.Visualizer(val_dloader,workspaceRoot)
-    visualizer.VisualizeEightImages('validation set')
-    visualizer = None
+    #visualizer = v.Visualizer(val_dloader,workspaceRoot)
+    #visualizer.VisualizeEightImages('validation set')
+    #visualizer = None
 
     #Generate Model
     segmentationModel =  sm.SegmentationModel(workspaceRoot)
-    segmentationModel.InitializeModel()
+    #segmentationModel.InitializeModel() #Need for resnets
+
 
     #Training and Testing Process
     print('Training Started')
@@ -48,9 +55,9 @@ def RunModel(workspaceRoot, batch_size, epochs, lr, useSaveModel = False, modelP
     print('Training Complete')
 
     #Testing on our dataset
-    print('Evaluation Started')
-    trainTestObj.segmentation_test_loop()
-    print('Evaluation Completed')
+    #print('Evaluation Started')
+    #trainTestObj.segmentation_test_loop()
+    #print('Evaluation Completed')
 
     return True
 

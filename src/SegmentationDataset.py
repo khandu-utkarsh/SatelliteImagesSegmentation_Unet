@@ -14,7 +14,7 @@ class Landcover_ai_Dataset(Dataset):
             self.mode = mode
             self.transforms = transforms
 
-            if mode in ["train", "test", "val"]:
+            if mode in ["train", "test", "val","train_full"]:
                 with open(os.path.join(self.datasets_dir, self.mode + ".txt")) as f:
                     self.img_names = f.read().splitlines()
                     print(f"Data count when mode is {mode} is: {len(self.img_names)}")
