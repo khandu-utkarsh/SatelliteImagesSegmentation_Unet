@@ -4,7 +4,7 @@ echo "Installing Dependencies..."
 #pip3 install -r ./requirements.txt #Fix this, some issue, flagging out error
 
 module load cuda/11.6.2
-pip3 install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
+pip3 install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116 --no-cache-dir
 pip3 install argparse
 pip3 install tabulate
 pip3 install segmentation_models_pytorch
