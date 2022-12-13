@@ -126,5 +126,5 @@ batch_size = 4
 
 args = parser.parse_args()
 modelRelativePath = args.modelName
-print(workspaceRoot, batch_size,, modelRelativePath)
+print(workspaceRoot, batch_size,modelRelativePath)
 PrintPredictions(workspaceRoot,modelRelativePath, batch_size)
