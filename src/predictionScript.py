@@ -129,7 +129,7 @@ parser = argparse.ArgumentParser(description='Provide arguments if you want to u
 parser.add_argument('--model-name', dest = 'modelName', default = None, type = str, help='Provide name of the model from workspaceRoot', required = False)
 
 workspaceRoot = os.getcwd()
-batch_size = 4
+batch_size = 64
 
 args = parser.parse_args()
 modelRelativePath = args.modelName
