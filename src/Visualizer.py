@@ -1,3 +1,4 @@
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -49,6 +50,16 @@ class Visualizer():
 
 
 def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
+    label_to_name_dict = {0 : 'Background', 1: 'Building', 2: 'Woodland', 3: 'Water', 4: 'Road'}
+    name_to_color_code = {'Background' : '#566573',
+                          'Building': '#884EA0' ,
+                          'Woodland' : '#28B463',
+                          'Water ' : '#2874A6',
+                          'Road' : '#566573'}
+
+    cols = name_to_color_code.values()
+    current_color_map = matplotlib.colors.ListedColormap(cols)
+
     num_images = image.shape[0]
 
     for index in range(num_images):
@@ -63,10 +74,10 @@ def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
 
 
         ax[1].set_title('Model prediction')
-        ax[1].imshow(pred)
+        ax[1].imshow(pred, cmap = current_color_map)
 
         ax[2].set_title('Ground Truth')
-        ax[2].imshow(gt)
+        ax[2].imshow(gt, cmap = current_color_map)
 
         title = 'Model Prediction'
         fig.suptitle(title, fontsize=20)
