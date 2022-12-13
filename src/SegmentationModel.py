@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-'''
+
 class SegmentationModel:
     def __init__(self, workspaceRootDir):
         self.encoder_name = "resnet50"
@@ -17,10 +17,7 @@ class SegmentationModel:
         self.classes = 5
         self.activation  = "softmax2d"
         self.aux_params = None
-        self.model = None
         self.workspace_root_dir = workspaceRootDir
-
-    def InitializeModel(self):
         self.model = smp.Unet(
                                encoder_name= self.encoder_name,
                                 encoder_depth = self.encoder_depth,
@@ -32,7 +29,6 @@ class SegmentationModel:
                                 classes = self.classes,
                                 activation = self.activation,
                                 aux_params= self.aux_params)
-'''
 
 '''
 class SegmentationModel:
@@ -47,12 +43,9 @@ class SegmentationModel:
         self.classes = 5
         self.activation  = "softmax2d"
         self.aux_params = None
-        self.model = None
         self.workspace_root_dir = workspaceRootDir
-
-    def InitializeModel(self):
         self.model = smp.Unet(
-                               encoder_name= self.encoder_name,
+                                encoder_name= self.encoder_name,
                                 encoder_depth = self.encoder_depth,
                                 encoder_weights = self.encoder_weights,
                                 decoder_channels = self.decoder_channels,
@@ -63,8 +56,8 @@ class SegmentationModel:
                                 activation = self.activation,
                                 aux_params= self.aux_params)
 
-
 '''
+
 #Copying Unet from some github repo
 class DoubleConv(nn.Module):
     """(convolution => [BN] => ReLU) * 2"""
@@ -183,7 +176,7 @@ class UNet(nn.Module):
         
         
         
-class SegmentationModel:
-    def __init__(self, workspaceRootDir):
-        self.workspace_root_dir = workspaceRootDir
-        self.model = UNet(3, 5)    
+# class SegmentationModel:
+#     def __init__(self, workspaceRootDir):
+#         self.workspace_root_dir = workspaceRootDir
+#         self.model = UNet(3, 5)    

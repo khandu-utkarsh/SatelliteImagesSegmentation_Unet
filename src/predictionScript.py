@@ -1,12 +1,19 @@
 import os
 import argparse
-
+import torch
 from torch.utils.data import DataLoader
 import SegmentationDataset as sdata
 import SegmentationModel as sm
+from tabulate import tabulate
+import torch.nn.functional as F
+from segmentation_models_pytorch import losses
+import numpy as np
+import time
+import sys
+import datetime
+import torchmetrics
 
 #Could remove these once subset functions are being removed
-import torch
 import torch.utils.data as data_utils
 
 class TestClass:
@@ -23,7 +30,7 @@ class TestClass:
         
         modelPath = os.path.join(segmentation_model.workspace_root_dir, self.modelRelativePathFromRoot)
         print("Loading the saved model from: ", modelPath)
-        self.model.load_state_dict(torch.load(modelPath))
+        self.model.load_state_dict(torch.load(modelPath, map_location=torch.device(self.device)))
 
     # Test loop
     def segmentation_test_loop(self):
