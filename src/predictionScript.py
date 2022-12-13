@@ -70,7 +70,6 @@ class TestClass:
         for label in class_probs.keys():
             class_probs[label] /= num_samples[label]
 
-        print("Model Path: ", modelPath)
         self.class_report(["Background","Building","Woodland","Water","Road"], precision.compute(), recall.compute(), F1_score.compute(), acc.compute(), mlacc.compute(), jaccard.compute(), class_probs)
         return
 
@@ -114,8 +113,8 @@ class TestClass:
 
 def PrintPredictions(workspaceRoot,relModelPathFromRoot, batch_size = 4):
     testDataset = sdata.Landcover_ai_Dataset(workspaceRoot, mode = "test")
+    #testDataset = data_utils.Subset(testDataset, torch.arange(8))  #Have to remove this
     test_dloader = DataLoader(testDataset, batch_size = batch_size)
-
     segmentationModel =  sm.SegmentationModel(workspaceRoot)
     #segmentationModel.InitializeModel() #Need for resnets
     tester = TestClass(segmentationModel, test_dloader, relModelPathFromRoot)
