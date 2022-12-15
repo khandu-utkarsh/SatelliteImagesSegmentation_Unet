@@ -20,16 +20,16 @@ class SegmentationModel:
         self.workspace_root_dir = workspaceRootDir
         self.model = smp.Unet(
                                encoder_name= self.encoder_name,
-                                encoder_depth = self.encoder_depth,
+                                #encoder_depth = self.encoder_depth,
                                 encoder_weights = self.encoder_weights,
-                                decoder_channels = self.decoder_channels,
-                                decoder_use_batchnorm = self.decoder_use_batchnorm,
-                                decoder_attention_type = self.decoder_attention_type,
-                                in_channels = self.in_channels,
-                                classes = self.classes,
-                                activation = self.activation,
-                                aux_params= self.aux_params)
-
+                                #decoder_channels = self.decoder_channels,
+                                #decoder_use_batchnorm = self.decoder_use_batchnorm,
+                                #decoder_attention_type = self.decoder_attention_type,
+                                #in_channels = self.in_channels,
+                                classes = self.classes)
+                                #activation = self.activation,
+                                #aux_params= self.aux_params)
+  
 '''
 class SegmentationModel:
     def __init__(self, workspaceRootDir):
@@ -56,7 +56,7 @@ class SegmentationModel:
                                 activation = self.activation,
                                 aux_params= self.aux_params)
 
-'''
+
 
 #Copying Unet from some github repo
 class DoubleConv(nn.Module):
@@ -175,8 +175,9 @@ class UNet(nn.Module):
         self.outc = torch.utils.checkpoint(self.outc)
         
         
-        
+'''        
 # class SegmentationModel:
 #     def __init__(self, workspaceRootDir):
 #         self.workspace_root_dir = workspaceRootDir
-#         self.model = UNet(3, 5)    
+#         self.model = UNet(3, 5) 
+
