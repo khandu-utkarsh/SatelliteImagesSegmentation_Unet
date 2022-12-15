@@ -57,7 +57,8 @@ def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
                           'Water ' : '#2874A6',
                           'Road' : '#FFFF00'}
 
-    cols = name_to_color_code.values()
+    #cols = name_to_color_code.values()
+    cols = ['#566573', '#884EA0', '#28B463','#2874A6','#FFFF00']
     current_color_map = matplotlib.colors.ListedColormap(cols)
 
     num_images = image.shape[0]
