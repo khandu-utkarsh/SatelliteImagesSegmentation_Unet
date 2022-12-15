@@ -8,13 +8,29 @@ import random
 
 class Visualizer():
 
-    def __init__(self, trainDataLoader, wp):
-        imgs, masks = next(iter(trainDataLoader))
+    def __init__(self, images, masks, index, wp):
+        #imgs, masks = next(iter(trainDataLoader))
+        imgs, masks = images, masks
         self.images = imgs
         self.masks = masks
         self.workspaceRootDir = wp
+        self.index = index
 
     def VisualizeEightImages(self, type, rowCount = 4):
+        label_to_name_dict = {0 : 'Background', 1: 'Building', 2: 'Woodland', 3: 'Water', 4: 'Road'}
+        name_to_color_code = {'Background' : '#566573', #Grey
+                                'Building': '#884EA0' , #Meganta
+                                'Woodland' : '#28B463', #Green
+                                'Water ' : '#2874A6', #Water
+                                'Road' : '#FFFF00'} #Yellow
+
+        #cols = name_to_color_code.values()
+        cols = ['#566573', '#884EA0', '#28B463','#2874A6','#FFFF00']
+        current_color_map = matplotlib.colors.ListedColormap(cols)
+
+        
+        #current_color_map = matplotlib.colors.ListedColormap(cols)
+
         images = self.images[:8]
         masks = self.masks[:8]
 
@@ -30,19 +46,18 @@ class Visualizer():
             msk2 = self.masks[2 * r + 1].numpy()
 
             ax[r, 0].imshow(img1)
-            ax[r, 0].set_title('Image: ' + str(r))
-            ax[r,1].imshow(msk1)
-            ax[r,1].set_title('Mask: ' + str(r))
-
+            ax[r, 0].set_title('Image: ' + str(2 * r + 1))
+            ax[r,1].imshow(msk1, cmap=current_color_map, vmin=0, vmax=4)
+            ax[r,1].set_title('Mask: ' + str(2 * r + 1))            
             ax[r, 2].imshow(img2)
-            ax[r, 2].set_title('Image: ' + str(r))
-            ax[r,3].imshow(msk2)
-            ax[r,3].set_title('Mask: ' + str(r))
+            ax[r, 2].set_title('Image: ' + str(2 * r + 2))
+            ax[r,3].imshow(msk2, cmap=current_color_map, vmin=0, vmax=4)
+            ax[r,3].set_title('Mask: ' + str(2 * r + 2))
 
         title = 'Visualization of eight images from ' + type
         fig.suptitle(title, fontsize=20)
 
-        fileName = "Visualization_of_eight_images_from_" + type
+        fileName = "Visualization_of_eight_images_from_" + type + '_batch_index_' + str(self.index)
         visualizationPath = os.path.join(self.workspaceRootDir, "visualizations")
         fileFullPath = os.path.join(visualizationPath, fileName)
         fig.savefig(fileFullPath)
@@ -55,9 +70,9 @@ def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
                           'Building': '#884EA0' ,
                           'Woodland' : '#28B463',
                           'Water ' : '#2874A6',
-                          'Road' : '#566573'}
+                          'Road' : '#FFFF00'}
 
-    cols = name_to_color_code.values()
+    cols = ['#566573', '#884EA0', '#28B463','#2874A6','#FFFF00']
     current_color_map = matplotlib.colors.ListedColormap(cols)
 
     num_images = image.shape[0]
@@ -74,10 +89,10 @@ def VisualizePrediction(image, predicted_mask, ground_truth, batchImageName):
 
 
         ax[1].set_title('Model prediction')
-        ax[1].imshow(pred, cmap = current_color_map)
-
+        ax[1].imshow(pred, cmap=current_color_map, vmin=0, vmax=4)
+        
         ax[2].set_title('Ground Truth')
-        ax[2].imshow(gt, cmap = current_color_map)
+        ax[2].imshow(gt, cmap=current_color_map, vmin=0, vmax=4)
 
         title = 'Model Prediction'
         fig.suptitle(title, fontsize=20)
