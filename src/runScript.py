@@ -20,7 +20,7 @@ def RunModel(workspaceRoot, batch_size, epochs, lr, useSaveModel = False, modelP
     #               "RandomRotate90", "HorizontalFlip", "RandomSizedCrop"]
     #vispath = os.path.join(workspaceRoot,"visualizations")
     #v.VisualizeTransforms(transforms,transforms_names,vispath)
-    #trainDataset = data_utils.Subset(trainDataset, torch.arange(16)) #Have to remove this
+    #trainDataset = data_utils.Subset(trainDataset, torch.arange(64)) #Have to remove this
     train_dloader = DataLoader(trainDataset,batch_size = batch_size)
     #visualizer = v.Visualizer(train_dloader,workspaceRoot)
     #visualizer.VisualizeEightImages('training set')
@@ -42,7 +42,7 @@ def RunModel(workspaceRoot, batch_size, epochs, lr, useSaveModel = False, modelP
     #Generate Model
     segmentationModel =  sm.SegmentationModel(workspaceRoot)
     #segmentationModel.InitializeModel() #Need for resnets
-
+    #segmentationModel =  sm.SegmentationModel()
 
     #Training and Testing Process
     print('Training Started')
@@ -77,8 +77,8 @@ else:
     modelPath = None
 
 workspaceRoot = os.getcwd()
-batch_size = 64
-epochs = 30
+batch_size = 4
+epochs = 50
 lr = 5e-5
 
 print('Printing all the arguments used by RunModel function:')
