@@ -1,17 +1,10 @@
 # SatelliteImagesSegmentation_Unet
+
 Computer Vision Project, NYU Fall 2022
 
-Please run this code using runScript.py from the workspace root directory
-
-###TODO 
-6. Write the slurm script to run this code on NYU Greens
-7. Make sure that all the code is efficiently utilizing GPU (whenever available)
-8. Write the report file
-9. Might need to add color map functionality to consistently plot the mask color
-
-###Done
-1. Write a bash file which install all the required modules
-2. Add visualization code and store all the generated data
-3. Add logging details (detailed)
-4. Check the implementation of logging and visualization using some already trained unet model
-5. Use the same bash script to execute the training and inference
+In this project, we implemented  multiple U-Net models to perform semantic segmentation of
+landcover from satellite images. Landcover.ai dataset was used to train three different U-Net
+models with different encoders to generate segmentation masks. We also performed
+data augmentation using various transforms to improve on classification accuracy and reduce
+overfitting. The performance of the trained models were evaluated and compared using various
+metrics such as Jaccard Index, Precision, Recall, F1 Score and Exact Match Ratio.
